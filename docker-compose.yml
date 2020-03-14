@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: da_budget
+      MYSQL_DATABASE: budget_app
+      MYSQL_USER: budget_app_user
+      MYSQL_PASSWORD: devpass
+    ports:
+      - "3306:3306"
+  web:
+    image: php:7.2.2-apache
+    container_name: php_web
+    depends_on:
+      - db
+    volumes:
+      - ./php/:/var/www/html/
+    ports:
+      - "8080:80"
+    stdin_open: true
+    tty: true
